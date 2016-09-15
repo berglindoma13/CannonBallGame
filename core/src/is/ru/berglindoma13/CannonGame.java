@@ -7,12 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 
 import java.nio.FloatBuffer;
 
-import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.utils.BufferUtils;
 
 public class CannonGame extends ApplicationAdapter {
-
-	private FloatBuffer vertexBuffer;
 
 	private FloatBuffer modelMatrixBuffer;
 	private FloatBuffer projectionMatrix;
@@ -22,8 +19,6 @@ public class CannonGame extends ApplicationAdapter {
 	private int fragmentShaderID;
 
 	private int positionLoc;
-
-	//private ModelMatrix modelMatrix;
 
 	private int modelMatrixLoc;
 	private int projectionMatrixLoc;
@@ -117,16 +112,9 @@ public class CannonGame extends ApplicationAdapter {
 		mm[2] = 0.0f; mm[6] = 0.0f; mm[10] = 1.0f; mm[14] = 0.0f;
 		mm[3] = 0.0f; mm[7] = 0.0f; mm[11] = 0.0f; mm[15] = 1.0f;
 
-		modelMatrixBuffer = BufferUtils.newFloatBuffer(16);
-		modelMatrixBuffer.put(mm);
-		modelMatrixBuffer.rewind();
-
-		Gdx.gl.glUniformMatrix4fv(modelMatrixLoc, 1, false, modelMatrixBuffer);
-
 		//COLOR IS SET HERE
 		Gdx.gl.glUniform4f(colorLoc, 0.7f, 0.2f, 0, 1);
 		Gdx.gl.glClearColor(0.4f, 0.6f, 1.0f, 1.0f);
-
 
 		ModelMatrix.main.loadIdentityMatrix();
 		ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
@@ -174,8 +162,6 @@ public class CannonGame extends ApplicationAdapter {
 
             cannonball.display(colorLoc);
         }
-
-
     }
 
 	@Override
