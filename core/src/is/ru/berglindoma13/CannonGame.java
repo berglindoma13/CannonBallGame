@@ -72,7 +72,7 @@ public class CannonGame extends ApplicationAdapter {
         ball_speed.x = 0.0f;
         ball_speed.y = 0.0f;
         cannonball = new CannonBall(cannon);
-        
+
         //Obstacles Array
         ObstacleX = new float[100];
         ObstacleY = new float[100];
@@ -163,6 +163,7 @@ public class CannonGame extends ApplicationAdapter {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
+            cannonball.setDirection();
             ball_moving = true;
         }
         if (ball_moving){

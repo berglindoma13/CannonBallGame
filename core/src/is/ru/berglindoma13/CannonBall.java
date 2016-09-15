@@ -13,10 +13,10 @@ public class CannonBall {
     public CannonBall(Cannon cannon){
         direction = new Vector();
         position = new Point();
-        position.x = 0;
-        position.y = 0;
-        position.z = 0;
-        direction = cannon.get_direction();
+        position.x = cannon.get_cannonPoint().x;
+        position.y = cannon.get_cannonPoint().y;
+        position.z = cannon.get_cannonPoint().z;
+        //direction = cannon.get_direction();
     }
 
     public void display(int colorLoc){
@@ -32,5 +32,9 @@ public class CannonBall {
     public void update(){
         position.x += direction.x;
         position.y += direction.y;
+    }
+
+    public void setDirection(){
+        
     }
 }

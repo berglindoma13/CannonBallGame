@@ -19,11 +19,15 @@ public class Cannon {
         direction = new Vector();
         angle = 0.0f;
         direction.x = 0.0f;
-        direction.y = 0.0f;
+        direction.y = 1.0f;
     }
 
     public Vector get_direction(){
         return direction;
+    }
+
+    public Point get_cannonPoint(){
+        return position;
     }
 
     public void display(int colorLoc){
@@ -37,19 +41,19 @@ public class Cannon {
     }
 
     public void update(){
+        float deltaTime = Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if (angle <= 45.0f) {
                 angle += 5.0f;
-                direction.x = (float)-Math.sin(angle * Math.PI / 180.0f) * Gdx.graphics.getDeltaTime() * 5.0f;
-                direction.y = (float)Math.cos(angle * Math.PI / 180.0f) * Gdx.graphics.getDeltaTime() * 5.0f;
-                System.out.println("direction.x" + direction.x + "direction.y" + direction.y);
+
+                direction.x = -angle/45;
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             if(angle >= -45.0f){
                 angle -= 5.0f;
-                direction.x = (float)-Math.sin(angle * Math.PI / 180.0f) * Gdx.graphics.getDeltaTime() * 1.0f;
-                direction.y = (float)Math.cos(angle * Math.PI / 180.0f) * Gdx.graphics.getDeltaTime() * 1.0f;
+
+                direction.x = -angle/45;
             }
         }
     }
