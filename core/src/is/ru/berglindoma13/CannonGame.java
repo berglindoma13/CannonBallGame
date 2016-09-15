@@ -46,7 +46,6 @@ public class CannonGame extends ApplicationAdapter {
     private boolean directionLeft;
 
     //position of CannonBall
-    private Point position_ball;
     private boolean ball_moving;
     private CannonBall cannonball;
 
@@ -71,10 +70,6 @@ public class CannonGame extends ApplicationAdapter {
         directionRight = true;
 
         //CannonnBall initalization
-        position_ball = new Point();
-        position_ball.x = 0.0f;
-        position_ball.y = 0.0f;
-        position_ball.z = 0.0f;
         ball_moving = false;
         ball_speed = new Vector();
         ball_speed.x = 0.0f;
@@ -149,6 +144,7 @@ public class CannonGame extends ApplicationAdapter {
 		ModelMatrix.main.loadIdentityMatrix();
 		ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
 		RectangleGraphic.create(positionLoc);
+        CircleGraphic.create(positionLoc);
 
 	}
 
@@ -172,8 +168,7 @@ public class CannonGame extends ApplicationAdapter {
             ball_moving = true;
         }
         if (ball_moving){
-            position_ball.x += ball_speed.x * deltaTime;
-            position_ball.y += ball_speed.y * deltaTime;
+            cannonball.update();
         }
 
         if ((goalX <= Gdx.graphics.getWidth() - 50) && directionRight){
@@ -212,22 +207,21 @@ public class CannonGame extends ApplicationAdapter {
         RectangleGraphic.drawSolidSquare();
 
         if(ball_moving){
-            //modelMatrix.loadIdentityMatrix();
-            ModelMatrix.main.setModelMatrixTranslation(position_ball.x, position_ball.y,0);
-            ModelMatrix.main.setModelMatrixScale(0.5f,0.5f,1.0f);
+            ModelMatrix.main.loadIdentityMatrix();
+            ModelMatrix.main.setModelMatrixTranslation(cannonX,cannonY,cannonZ);
+            ModelMatrix.main.setModelMatrixScale(5,5,0);
             ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
             Gdx.gl.glUniform4f(colorLoc, 0.5f, 0.5f, 0, 1);
-
-            RectangleGraphic.drawSolidSquare();
+            CircleGraphic.drawSolidCircle();
+            //cannonball.display(colorLoc);
         }
-        ModelMatrix.main.loadIdentityMatrix();
     }
 
 	@Override
 	public void render () {
 		update();
         display();
-        ModelMatrix.main.loadIdentityMatrix();
+        //ModelMatrix.main.loadIdentityMatrix();
 	}
 
 

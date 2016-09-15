@@ -36,7 +36,7 @@ public class CircleGraphic {
         Gdx.gl.glDrawArrays(GL20.GL_TRIANGLE_FAN, 0, verticesPerCircle);
     }
 
-    public static void drawSquareLines(){
+    public static void drawOutlineCircle(){
         Gdx.gl.glVertexAttribPointer(vertexPointer, 2, GL20.GL_FLOAT, false, 0, vertexBuffer);
         Gdx.gl.glDrawArrays(GL20.GL_LINE_LOOP, 0, verticesPerCircle);
     }

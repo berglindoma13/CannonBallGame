@@ -13,6 +13,7 @@ public class Matrix {
 
     FloatBuffer matrix;
     Stack<FloatBuffer> matrixStack;
+    int shaderMatrixPointer_local;
 
 
     public Matrix(){
@@ -77,9 +78,10 @@ public class Matrix {
     }
 
     public void setShaderMatrix(int shaderMatrixPointer){
+        shaderMatrixPointer_local = shaderMatrixPointer;
         Gdx.gl.glUniformMatrix4fv(shaderMatrixPointer, 1, false, matrix);
     }
     public void setShaderMatrix(){
-
+        Gdx.gl.glUniformMatrix4fv(shaderMatrixPointer_local, 1, false, matrix);
     }
 }
