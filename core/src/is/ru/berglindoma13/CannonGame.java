@@ -163,7 +163,7 @@ public class CannonGame extends ApplicationAdapter {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
-            cannonball.setDirection();
+            cannonball.setDirection(cannon.direction.x);
             ball_moving = true;
         }
         if (ball_moving){

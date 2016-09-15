@@ -34,7 +34,8 @@ public class CannonBall {
         position.y += direction.y;
     }
 
-    public void setDirection(){
-        
+    public void setDirection(float x){
+        direction.x = x;
+        direction.y = 1;
     }
 }
