@@ -140,6 +140,7 @@ public class CannonGame extends ApplicationAdapter {
 
         cannon.update();
         goal.update();
+        float hit = goal.goalcords();
 
         if(Gdx.input.justTouched())
         {
@@ -149,11 +150,12 @@ public class CannonGame extends ApplicationAdapter {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
+
             cannonball.setDirection(cannon.direction.x);
             ball_moving = true;
         }
         if (ball_moving){
-            cannonball.update();
+            cannonball.update(hit);
         }
 
     }
@@ -173,6 +175,8 @@ public class CannonGame extends ApplicationAdapter {
 
             cannonball.display(colorLoc);
         }
+
+
     }
 
 	@Override

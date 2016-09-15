@@ -46,4 +46,8 @@ public class Goal {
         RectangleGraphic.drawSquareLines();
         ModelMatrix.main.popMatrix();
     }
+
+    public float goalcords(){
+        return position.x;
+    }
 }

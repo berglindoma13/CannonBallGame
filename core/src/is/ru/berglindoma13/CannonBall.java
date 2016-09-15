@@ -30,12 +30,13 @@ public class CannonBall {
         ModelMatrix.main.popMatrix();
 }
 
-    public void update(){
+    public void update(float hit){
         float deltaTime = Gdx.graphics.getDeltaTime();
         position.x += direction.x * deltaTime * 250.0f;
         position.y += direction.y * deltaTime * 250.0f;
 
-        collision();
+
+        collision(hit);
 
     }
 
@@ -44,7 +45,7 @@ public class CannonBall {
         direction.y = 1;
     }
 
-    public void collision(){
+    public void collision(float hit){
         float deltaTime = Gdx.graphics.getDeltaTime();
         Point topwall = new Point();
         topwall.x = 0;
@@ -64,13 +65,19 @@ public class CannonBall {
 
         float thit = ((normal.x * b_a.x) + (normal.y * b_a.y)) / ((normal.x * direction.x) + (normal.y * direction.y));
 
-        //putting thit and delta into same units
+        //putting Thit and deltaTime into same units
         float newthit = thit * direction.x + thit*direction.y;
         float newdelta = deltaTime * direction.x + deltaTime * direction.y;
 
         if(newthit < newdelta){
 
-            getReflection();
+            if(position.x < hit + 50 && position.x > hit - 50){
+                System.out.println("HIT THE GOAL");
+            }
+            else{
+                getReflection();
+            }
+
         }
     }
 
@@ -95,4 +102,6 @@ public class CannonBall {
         direction.x = reflection.x;
         direction.y = reflection.y;
     }
+
+
 }
