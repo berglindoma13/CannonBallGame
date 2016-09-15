@@ -68,7 +68,7 @@ public class CannonGame extends ApplicationAdapter {
         ball_speed = new Vector();
         ball_speed.x = 0.0f;
         ball_speed.y = 0.0f;
-        cannonball = new CannonBall();
+        cannonball = new CannonBall(cannon);
 
         //Cannon
         cannon = new Cannon();
