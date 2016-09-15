@@ -1,0 +1,24 @@
+Gdx.gl.glViewport(); //setting a new viewport
+float DeltaTime = Gdx.graphics.getDeltaTime();
+
+private Vector speed;
+speed = new Vector2D(); //create class called Vector2D
+speed.x = 300.0;
+speed.y = 80.0;
+
+//Change the objects position based on the vector speed
+position.x = position.x + DeltaTime * speed.x;
+position.y = position.y + DeltaTime * speed.y;
+
+//get the height and width of the screen
+Gdx.graphics.getHeight();
+Gdx.graphics.getWidth();
+
+//Adding transformations to matrices
+public void addTransformation(float[] T){
+    //do this to all lines, simple matrix multiplication
+    float m0 = matrix.get(0)*T[0] + matrix.get(4)*T[1] + matrix.get(8)*T[2] + matrix.get(12)*T[3];
+    //then put them in the matrix
+    matrix.put(0,m0);
+    matrix.put(1,m1); //and so on
+}
