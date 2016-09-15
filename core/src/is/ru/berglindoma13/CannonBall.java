@@ -8,7 +8,6 @@ import com.sun.javafx.sg.prism.NGShape;
  */
 public class CannonBall {
     Point position;
-    //CircleGraphic c;
 
     public CannonBall(){
         position = new Point();

@@ -30,14 +30,6 @@ public class CannonGame extends ApplicationAdapter {
 
 	private int colorLoc;
 
-    //Position of the cannon
-    private float cannonX;
-    private float cannonY;
-	private float cannonZ;
-
-    //rotation of the cannon
-    private float angle;
-
     //position of goal
     private float goalX;
     private float goalY;
@@ -45,22 +37,19 @@ public class CannonGame extends ApplicationAdapter {
     private boolean directionRight;
     private boolean directionLeft;
 
+    //Cannon
+    private Cannon cannon;
+
     //position of CannonBall
     private boolean ball_moving;
     private CannonBall cannonball;
-
-    //CannonBall vector
     private Vector ball_speed;
+
+
 
 
 	@Override
 	public void create () {
-
-	    //Cannon initialization
-	    cannonX = 512;
-        cannonY = 50;
-		cannonZ = 0;
-        angle = 0.0f;
 
         //Goal initialization
         goalX = 50;
@@ -75,6 +64,9 @@ public class CannonGame extends ApplicationAdapter {
         ball_speed.x = 0.0f;
         ball_speed.y = 0.0f;
         cannonball = new CannonBall();
+
+        //Cannon
+        cannon = new Cannon();
 
         ModelMatrix.main = new ModelMatrix();
 
@@ -151,20 +143,9 @@ public class CannonGame extends ApplicationAdapter {
 	public void update(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if (angle <= 45.0f) {
-                angle += 5.0f;
-            }
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            if(angle >= -45.0f){
-                angle -= 5.0f;
-            }
-        }
+        cannon.update();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
-            ball_speed.x = angle;
-            ball_speed.y = angle;
             ball_moving = true;
         }
         if (ball_moving){
@@ -200,13 +181,7 @@ public class CannonGame extends ApplicationAdapter {
         ModelMatrix.main.popMatrix();
 
         //drawing the cannon
-        ModelMatrix.main.pushMatrix();
-        ModelMatrix.main.setModelMatrixTranslation(cannonX,cannonY,cannonZ);
-        ModelMatrix.main.setModelMatrixRotation(angle);
-        ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
-        Gdx.gl.glUniform4f(colorLoc, 0.3f, 0.2f, 0, 1);
-        RectangleGraphic.drawSolidSquare();
-        ModelMatrix.main.popMatrix();
+        cannon.display(colorLoc);
 
         if(ball_moving){
 
