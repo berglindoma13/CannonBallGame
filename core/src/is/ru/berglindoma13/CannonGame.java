@@ -45,6 +45,11 @@ public class CannonGame extends ApplicationAdapter {
     private CannonBall cannonball;
     private Vector ball_speed;
 
+    //Obstacles
+    private float[] ObstacleX;
+    private float[] ObstacleY;
+    private int Obstacles;
+
 
 
 
@@ -67,6 +72,11 @@ public class CannonGame extends ApplicationAdapter {
 
         //Cannon
         cannon = new Cannon();
+
+        //Obstacles Array
+        ObstacleX = new float[100];
+        ObstacleY = new float[100];
+        Obstacles = 0;
 
         ModelMatrix.main = new ModelMatrix();
 
@@ -145,6 +155,13 @@ public class CannonGame extends ApplicationAdapter {
 
         cannon.update();
 
+        if(Gdx.input.justTouched())
+        {
+            ObstacleX[Obstacles] = Gdx.input.getX();
+            ObstacleY[Obstacles] = Gdx.graphics.getHeight() - Gdx.input.getY();
+            Obstacles++;
+        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
             ball_moving = true;
         }
@@ -183,6 +200,8 @@ public class CannonGame extends ApplicationAdapter {
         //drawing the cannon
         cannon.display(colorLoc);
 
+        drawObstacles();
+
         if(ball_moving){
 
             cannonball.display(colorLoc);
@@ -195,6 +214,28 @@ public class CannonGame extends ApplicationAdapter {
         display();
 	}
 
-
+    private void drawObstacles(){
+        for(int i = 0; i < Obstacles; i++){
+            ModelMatrix.main.pushMatrix();
+            if(ObstacleX[i] > Gdx.graphics.getWidth() - 50){
+                ObstacleX[i] = Gdx.graphics.getWidth() - 50;
+            }
+            if(ObstacleY[i] > Gdx.graphics.getHeight() - 20){
+                ObstacleY[i] = Gdx.graphics.getHeight() - 20;
+            }
+            if(ObstacleX[i] < 50){
+                ObstacleX[i] = 50;
+            }
+            if(ObstacleY[i] < 20){
+                ObstacleY[i] = 20;
+            }
+            ModelMatrix.main.setModelMatrixTranslation(ObstacleX[i],ObstacleY[i], 0);
+            ModelMatrix.main.setModelMatrixRotation(90);
+            ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
+            Gdx.gl.glUniform4f(colorLoc, 1.0f, 0.0f, 0, 1);
+            RectangleGraphic.drawSolidSquare();
+            ModelMatrix.main.popMatrix();
+        }
+    }
 
 }
