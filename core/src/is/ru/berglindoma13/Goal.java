@@ -42,7 +42,7 @@ public class Goal {
         ModelMatrix.main.setModelMatrixTranslation(position.x,position.y,position.z);
         ModelMatrix.main.setModelMatrixRotation(90);
         ModelMatrix.main.setShaderMatrix();
-        Gdx.gl.glUniform4f(colorLoc, 0.3f, 0.2f, 0, 1);
+        Gdx.gl.glUniform4f(colorLoc, 0.3f, 1.0f, 0, 1);
         RectangleGraphic.drawSquareLines();
         ModelMatrix.main.popMatrix();
     }

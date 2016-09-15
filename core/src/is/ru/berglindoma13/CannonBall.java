@@ -25,7 +25,7 @@ public class CannonBall {
         ModelMatrix.main.setModelMatrixTranslation(position.x,position.y,position.z);
         ModelMatrix.main.setModelMatrixScale(5,5,0);
         ModelMatrix.main.setShaderMatrix();
-        Gdx.gl.glUniform4f(colorLoc, 0.5f, 0.5f, 0, 1);
+        Gdx.gl.glUniform4f(colorLoc, 0.1f, 0.5f, 0, 1);
         CircleGraphic.drawSolidCircle();
         ModelMatrix.main.popMatrix();
 }
