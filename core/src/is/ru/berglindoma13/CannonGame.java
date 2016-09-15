@@ -207,13 +207,8 @@ public class CannonGame extends ApplicationAdapter {
         RectangleGraphic.drawSolidSquare();
 
         if(ball_moving){
-            ModelMatrix.main.loadIdentityMatrix();
-            ModelMatrix.main.setModelMatrixTranslation(cannonX,cannonY,cannonZ);
-            ModelMatrix.main.setModelMatrixScale(5,5,0);
-            ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
-            Gdx.gl.glUniform4f(colorLoc, 0.5f, 0.5f, 0, 1);
-            CircleGraphic.drawSolidCircle();
-            //cannonball.display(colorLoc);
+
+            cannonball.display(colorLoc);
         }
     }
 
