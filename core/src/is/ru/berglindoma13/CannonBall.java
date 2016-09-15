@@ -9,6 +9,7 @@ import com.sun.javafx.sg.prism.NGShape;
 public class CannonBall {
     Point position;
     Vector direction;
+    int i = 0;
 
     public CannonBall(Cannon cannon){
         direction = new Vector();
@@ -32,9 +33,8 @@ public class CannonBall {
 
     public void update(float hit){
         float deltaTime = Gdx.graphics.getDeltaTime();
-        position.x += direction.x * deltaTime * 250.0f;
-        position.y += direction.y * deltaTime * 250.0f;
-
+        position.x += direction.x * deltaTime * 150.0f;
+        position.y += direction.y * deltaTime * 150.0f;
 
         collision(hit);
 
@@ -47,60 +47,82 @@ public class CannonBall {
 
     public void collision(float hit){
         float deltaTime = Gdx.graphics.getDeltaTime();
+
+        Point leftside = new Point();
+        leftside.x = 0;
+        leftside.y = 768;
+
+        Vector v = new Vector();
+        v.x = 0;
+        v.y = -768;
+
+        Vector normal = new Vector();
+        normal.x = -v.y;
+        normal.y = v.x;
+
         Point topwall = new Point();
         topwall.x = 0;
         topwall.y = 768;
 
-        Vector v = new Vector();
-        v.x = -1024;
-        v.y = 0;
+        Vector v2 = new Vector();
+        v2.x = -1024;
+        v2.y = 0;
 
-        Vector normal = new Vector();
-        normal.x = -v.y;
-        normal.y = v.x;
+        Vector normal2 = new Vector();
+        normal2.x = -v.y;
+        normal2.y = v.x;
 
-        Vector b_a = new Vector();
-        b_a.x = (topwall.x - position.x);
-        b_a.y = (topwall.y - position.y);
+        float thit1 = thit(v,normal,leftside);
+        float thit2 = thit(v2,normal2,topwall);
 
-        float thit = ((normal.x * b_a.x) + (normal.y * b_a.y)) / ((normal.x * direction.x) + (normal.y * direction.y));
 
-        //putting Thit and deltaTime into same units
-        float newthit = thit * direction.x + thit*direction.y;
-        float newdelta = deltaTime * direction.x + deltaTime * direction.y;
+        if(thit1 < deltaTime && i == 0){
 
-        if(newthit < newdelta){
-
-            if(position.x < hit + 50 && position.x > hit - 50){
+            /*if(position.x < hit + 50 && position.x > hit - 50){
                 System.out.println("HIT THE GOAL");
             }
             else{
-                getReflection();
-            }
+                getReflection(v);
+            }*/
+            i = 1;
+            getReflection(v);
 
+        }
+        else if(thit2 < deltaTime && i == 0){
+            i = 1;
+            getReflection(v2);
         }
     }
 
-    public void getReflection(){
+    public void getReflection(Vector v){
         Vector reflection = new Vector();
-        Vector v = new Vector();
-        v.x = -1024;
-        v.y = 0;
 
         Vector normal = new Vector();
         normal.x = -v.y;
         normal.y = v.x;
-        float calc = (2*((direction.x * normal.x) + (direction.y * normal.y)))/((normal.x*normal.x)+(normal.y*normal.y));
 
-        Vector newn = new Vector();
-        newn.x = normal.x*calc;
-        newn.y = normal.y*calc;
+        float calc = 2*(((direction.x * normal.x) + (direction.y * normal.y))/((normal.x*normal.x)+(normal.y*normal.y)));
 
-        reflection.x = direction.x - newn.x;
-        reflection.y = direction.y - newn.y;
+        Vector temp = new Vector();
+        temp.x = normal.x*calc;
+        temp.y = normal.y*calc;
+
+        reflection.x = direction.x - temp.x;
+        reflection.y = direction.y - temp.y;
 
         direction.x = reflection.x;
         direction.y = reflection.y;
+        //i = 0;
+    }
+
+    private float thit(Vector v, Vector normal, Point b){
+        Vector b_a = new Vector();
+        b_a.x = (b.x - position.x);
+        b_a.y = (b.y - position.y);
+
+        float thit = ((normal.x * b_a.x) + (normal.y * b_a.y)) / ((normal.x * direction.x) + (normal.y * direction.y));
+
+        return thit;
     }
 
 
