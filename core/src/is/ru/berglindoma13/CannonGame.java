@@ -63,16 +63,16 @@ public class CannonGame extends ApplicationAdapter {
         directionLeft = false;
         directionRight = true;
 
+        //Cannon
+        cannon = new Cannon();
+
         //CannonnBall initalization
         ball_moving = false;
         ball_speed = new Vector();
         ball_speed.x = 0.0f;
         ball_speed.y = 0.0f;
         cannonball = new CannonBall(cannon);
-
-        //Cannon
-        cannon = new Cannon();
-
+        
         //Obstacles Array
         ObstacleX = new float[100];
         ObstacleY = new float[100];
