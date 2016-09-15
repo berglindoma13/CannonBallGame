@@ -30,12 +30,8 @@ public class CannonGame extends ApplicationAdapter {
 
 	private int colorLoc;
 
-    //position of goal
-    private float goalX;
-    private float goalY;
-    private float goalZ;
-    private boolean directionRight;
-    private boolean directionLeft;
+    //Goal
+    private Goal goal;
 
     //Cannon
     private Cannon cannon;
@@ -43,34 +39,23 @@ public class CannonGame extends ApplicationAdapter {
     //position of CannonBall
     private boolean ball_moving;
     private CannonBall cannonball;
-    private Vector ball_speed;
 
     //Obstacles
     private float[] ObstacleX;
     private float[] ObstacleY;
     private int Obstacles;
 
-
-
-
 	@Override
 	public void create () {
 
         //Goal initialization
-        goalX = 50;
-        goalY = Gdx.graphics.getHeight() - 20;
-        goalZ = 0;
-        directionLeft = false;
-        directionRight = true;
+        goal = new Goal();
 
-        //Cannon
+        //Cannon initialization
         cannon = new Cannon();
 
         //CannonnBall initalization
         ball_moving = false;
-        ball_speed = new Vector();
-        ball_speed.x = 0.0f;
-        ball_speed.y = 0.0f;
         cannonball = new CannonBall(cannon);
 
         //Obstacles Array
@@ -154,6 +139,7 @@ public class CannonGame extends ApplicationAdapter {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
         cannon.update();
+        goal.update();
 
         if(Gdx.input.justTouched())
         {
@@ -170,33 +156,13 @@ public class CannonGame extends ApplicationAdapter {
             cannonball.update();
         }
 
-        if ((goalX <= Gdx.graphics.getWidth() - 50) && directionRight){
-            goalX += 150.0f * deltaTime;
-        }
-        else if(goalX >= 50 && directionLeft){
-            goalX -= 150.0f * deltaTime;
-        }
-        else if(goalX > Gdx.graphics.getWidth()-50){
-            directionRight = false;
-            directionLeft = true;
-        }
-        else{
-            directionLeft = false;
-            directionRight = true;
-        }
     }
 
     public void display(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //drawing the goal
-        ModelMatrix.main.pushMatrix();
-        ModelMatrix.main.setModelMatrixTranslation(goalX,goalY,goalZ);
-        ModelMatrix.main.setModelMatrixRotation(90);
-        ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
-        Gdx.gl.glUniform4f(colorLoc, 0.3f, 0.2f, 0, 1);
-        RectangleGraphic.drawSquareLines();
-        ModelMatrix.main.popMatrix();
+        goal.display(colorLoc);
 
         //drawing the cannon
         cannon.display(colorLoc);

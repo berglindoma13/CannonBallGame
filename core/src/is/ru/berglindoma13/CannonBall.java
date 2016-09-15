@@ -32,10 +32,8 @@ public class CannonBall {
 
     public void update(){
         float deltaTime = Gdx.graphics.getDeltaTime();
-        position.x += direction.x * deltaTime * 150.0f;
-        position.y += direction.y * deltaTime * 150.0f;
-        System.out.println("dir vector.y " + direction.y);
-        System.out.println("position_y" + position.y);
+        position.x += direction.x * deltaTime * 250.0f;
+        position.y += direction.y * deltaTime * 250.0f;
 
         collision();
 
@@ -73,8 +71,6 @@ public class CannonBall {
         if(newthit < newdelta){
 
             getReflection();
-
-           // System.out.println(position.y);
         }
     }
 
