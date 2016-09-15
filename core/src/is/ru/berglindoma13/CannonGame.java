@@ -191,20 +191,22 @@ public class CannonGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //drawing the goal
-        //ModelMatrix.main.pushMatrix();
+        ModelMatrix.main.pushMatrix();
         ModelMatrix.main.setModelMatrixTranslation(goalX,goalY,goalZ);
         ModelMatrix.main.setModelMatrixRotation(90);
         ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
         Gdx.gl.glUniform4f(colorLoc, 0.3f, 0.2f, 0, 1);
         RectangleGraphic.drawSquareLines();
+        ModelMatrix.main.popMatrix();
 
         //drawing the cannon
-        ModelMatrix.main.loadIdentityMatrix();
+        ModelMatrix.main.pushMatrix();
         ModelMatrix.main.setModelMatrixTranslation(cannonX,cannonY,cannonZ);
         ModelMatrix.main.setModelMatrixRotation(angle);
         ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
         Gdx.gl.glUniform4f(colorLoc, 0.3f, 0.2f, 0, 1);
         RectangleGraphic.drawSolidSquare();
+        ModelMatrix.main.popMatrix();
 
         if(ball_moving){
 
@@ -216,7 +218,6 @@ public class CannonGame extends ApplicationAdapter {
 	public void render () {
 		update();
         display();
-        //ModelMatrix.main.loadIdentityMatrix();
 	}
 
 
