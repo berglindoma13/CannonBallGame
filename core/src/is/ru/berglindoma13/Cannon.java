@@ -22,10 +22,6 @@ public class Cannon {
         direction.y = 1.0f;
     }
 
-    public Vector get_direction(){
-        return direction;
-    }
-
     public Point get_cannonPoint(){
         return position;
     }
@@ -41,7 +37,7 @@ public class Cannon {
     }
 
     public void update(){
-        float deltaTime = Gdx.graphics.getDeltaTime();
+
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if (angle <= 45.0f) {
                 angle += 5.0f;

@@ -16,7 +16,6 @@ public class CannonBall {
         position.x = cannon.get_cannonPoint().x;
         position.y = cannon.get_cannonPoint().y;
         position.z = cannon.get_cannonPoint().z;
-        //direction = cannon.get_direction();
     }
 
     public void display(int colorLoc){
@@ -30,8 +29,9 @@ public class CannonBall {
 }
 
     public void update(){
-        position.x += direction.x;
-        position.y += direction.y;
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        position.x += direction.x * deltaTime * 150.0f;
+        position.y += direction.y * deltaTime * 150.0f;
     }
 
     public void setDirection(float x){
