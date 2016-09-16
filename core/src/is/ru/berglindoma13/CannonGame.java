@@ -9,9 +9,10 @@ import java.nio.FloatBuffer;
 
 import com.badlogic.gdx.utils.BufferUtils;
 
+import static com.badlogic.gdx.graphics.GL20.GL_LINES;
+
 public class CannonGame extends ApplicationAdapter {
 
-	private FloatBuffer modelMatrixBuffer;
 	private FloatBuffer projectionMatrix;
 
 	private int renderingProgramID;
@@ -40,6 +41,12 @@ public class CannonGame extends ApplicationAdapter {
     private float[] ObstacleY;
     private int Obstacles;
 
+    //Lines
+    private float[] lines;
+    private int linecounter;
+    LineGraphic lineGraphic;
+    boolean rightButtonPressed;
+
 	@Override
 	public void create () {
 
@@ -57,6 +64,12 @@ public class CannonGame extends ApplicationAdapter {
         ObstacleX = new float[100];
         ObstacleY = new float[100];
         Obstacles = 0;
+
+        //Line array
+        lines = new float[400];
+        rightButtonPressed = false;
+        linecounter = 0;
+        lineGraphic = new LineGraphic();
 
         ModelMatrix.main = new ModelMatrix();
 
@@ -129,7 +142,7 @@ public class CannonGame extends ApplicationAdapter {
         goal.update();
         float hit = goal.goalcords();
 
-        if(Gdx.input.justTouched())
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
         {
             ObstacleX[Obstacles] = Gdx.input.getX();
             ObstacleY[Obstacles] = Gdx.graphics.getHeight() - Gdx.input.getY();
@@ -143,6 +156,33 @@ public class CannonGame extends ApplicationAdapter {
         }
         if (ball_moving){
             cannonball.update(hit);
+        }
+
+        if(!rightButtonPressed){
+            if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+                rightButtonPressed = true;
+                lines[linecounter] = Gdx.input.getX();
+                lines[linecounter+1] = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+                linecounter+=2;
+                if (linecounter % 4 == 0){
+                    for(int i = 0; i < linecounter; i=i+4){
+                        Point a = new Point();
+                        a.x = lines[i];
+                        a.y = lines[i+1];
+                        System.out.println("x : " + a.x + " y: " + a.y);
+
+                        Point b = new Point();
+                        b.x = lines[i+2];
+                        b.y = lines[1+3];
+                        System.out.println("x2 : " + b.x + " y2: " + b.y);
+                        lineGraphic.drawline(positionLoc,a,b);
+                    }
+                }
+            }
+        }
+        else if(rightButtonPressed && !Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+            rightButtonPressed = false;
         }
 
     }
@@ -162,6 +202,8 @@ public class CannonGame extends ApplicationAdapter {
 
             cannonball.display(colorLoc);
         }
+
+
     }
 
 	@Override
@@ -193,5 +235,6 @@ public class CannonGame extends ApplicationAdapter {
             ModelMatrix.main.popMatrix();
         }
     }
+
 
 }

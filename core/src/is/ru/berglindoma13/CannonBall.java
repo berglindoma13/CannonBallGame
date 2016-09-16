@@ -56,10 +56,6 @@ public class CannonBall {
         v.x = 0;
         v.y = -768;
 
-        Vector normal = new Vector();
-        normal.x = -v.y;
-        normal.y = v.x;
-
         Point topwall = new Point();
         topwall.x = 0;
         topwall.y = 768;
@@ -68,12 +64,8 @@ public class CannonBall {
         v2.x = -1024;
         v2.y = 0;
 
-        Vector normal2 = new Vector();
-        normal2.x = -v.y;
-        normal2.y = v.x;
-
-        float thit1 = thit(v,normal,leftside);
-        float thit2 = thit(v2,normal2,topwall);
+        float thit1 = thit(v,leftside);
+        float thit2 = thit(v2,topwall);
 
 
         if(thit1 < deltaTime && i == 0){
@@ -115,7 +107,10 @@ public class CannonBall {
         //i = 0;
     }
 
-    private float thit(Vector v, Vector normal, Point b){
+    private float thit(Vector v, Point b){
+        Vector normal = new Vector();
+        normal = v.getnormal();
+
         Vector b_a = new Vector();
         b_a.x = (b.x - position.x);
         b_a.y = (b.y - position.y);

@@ -19,4 +19,11 @@ public class Vector {
         x = setLength * x / length;
         y = setLength * y / length;
     }
+
+    public Vector getnormal(){
+        Vector normal = new Vector();
+        normal.x = -y;
+        normal.y = x;
+        return normal;
+    }
 }
