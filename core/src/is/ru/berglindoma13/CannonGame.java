@@ -38,6 +38,7 @@ public class CannonGame extends ApplicationAdapter {
     private float[] ObstacleX;
     private float[] ObstacleY;
     private int Obstacles;
+    private boolean leftButtonPressed;
 
     //Lines
     private float[] lines;
@@ -62,6 +63,7 @@ public class CannonGame extends ApplicationAdapter {
         ObstacleX = new float[100];
         ObstacleY = new float[100];
         Obstacles = 0;
+        leftButtonPressed = false;
 
         //Line array
         lines = new float[400];
@@ -140,12 +142,19 @@ public class CannonGame extends ApplicationAdapter {
         goal.update();
         float hit = goal.goalcords();
 
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-        {
-            ObstacleX[Obstacles] = Gdx.input.getX();
-            ObstacleY[Obstacles] = Gdx.graphics.getHeight() - Gdx.input.getY();
-            Obstacles++;
+        if(!leftButtonPressed){
+            leftButtonPressed = true;
+            if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            {
+                ObstacleX[Obstacles] = Gdx.input.getX();
+                ObstacleY[Obstacles] = Gdx.graphics.getHeight() - Gdx.input.getY();
+                Obstacles++;
+            }
         }
+        else if(leftButtonPressed && !Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+            leftButtonPressed = false;
+        }
+
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
 
