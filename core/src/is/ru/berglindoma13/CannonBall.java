@@ -48,6 +48,38 @@ public class CannonBall {
     public void collision(float hit){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
+        for(int i = 0 ; i < CannonGame.getNumberOfObstacles(); i++){
+            Point middle = new Point();
+            middle.x = CannonGame.getObstaclesX()[i];
+            middle.y = CannonGame.getObstacleY()[i];
+
+            //bottom left corner
+            Point p1 = new Point();
+            p1.x = middle.x - 50;
+            p1.y = middle.y - 20;
+
+            //top left corner
+            Point p2 = new Point();
+            p2.x = middle.x - 50;
+            p2.y = middle.y + 20;
+
+            //bottom right corner
+            Point p3 = new Point();
+            p3.x = middle.x + 50;
+            p3.y = middle.y - 20;
+
+            //top right corner
+            Point p4 = new Point();
+            p4.x = middle.x + 50;
+            p4.y = middle.y + 20;
+
+            System.out.println("middle.x: " + middle.x + " middle.y: " + middle.y);
+            System.out.println("p1.x: " + p1.x + " p1.y: " + p1.y);
+            System.out.println("p2.x: " + p2.x + " p2.y: " + p2.y);
+            System.out.println("p3.x: " + p3.x + " p3.y: " + p3.y);
+            System.out.println("p4.x: " + p4.x + " p4.y: " + p4.y);
+        }
+
         Point leftside = new Point();
         leftside.x = 0;
         leftside.y = 768;
@@ -56,23 +88,8 @@ public class CannonBall {
         v.x = 0;
         v.y = -768;
 
+        //float thit1 = thit(v,leftside);
 
-        float thit1 = thit(v,leftside);
-
-
-        if(thit1 < deltaTime && i == 0){
-
-            /*if(position.x < hit + 50 && position.x > hit - 50){
-                System.out.println("HIT THE GOAL");
-            }
-            else{
-                getReflection(v);
-            }*/
-            i = 1;
-            getReflection(v);
-
-        }
-        
     }
 
     public void getReflection(Vector v){
@@ -96,8 +113,12 @@ public class CannonBall {
         //i = 0;
     }
 
-    private float thit(Vector v, Point b){
-        Vector normal = new Vector();
+    private float thit(Point a, Point b){
+        Vector v = new Vector();
+        v.x = a.x - b.x;
+        v.y = a.y - b.y;
+
+        Vector normal;
         normal = v.getnormal();
 
         Vector b_a = new Vector();
@@ -108,6 +129,7 @@ public class CannonBall {
 
         return thit;
     }
+
 
 
 }

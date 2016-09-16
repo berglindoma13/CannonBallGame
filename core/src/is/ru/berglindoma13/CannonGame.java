@@ -35,9 +35,9 @@ public class CannonGame extends ApplicationAdapter {
     private CannonBall cannonball;
 
     //Obstacles
-    private float[] ObstacleX;
-    private float[] ObstacleY;
-    private int Obstacles;
+    private static float[] ObstacleX;
+    private static float[] ObstacleY;
+    private static int Obstacles;
     private boolean leftButtonPressed;
 
     //Lines
@@ -243,5 +243,14 @@ public class CannonGame extends ApplicationAdapter {
         }
     }
 
+    public static float[] getObstaclesX(){
+        return ObstacleX;
+    }
+    public static float[] getObstacleY(){
+        return ObstacleY;
+    }
+    public static float getNumberOfObstacles(){
+        return Obstacles;
+    }
 
 }
