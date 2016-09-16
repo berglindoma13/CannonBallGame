@@ -56,16 +56,8 @@ public class CannonBall {
         v.x = 0;
         v.y = -768;
 
-        Point topwall = new Point();
-        topwall.x = 0;
-        topwall.y = 768;
-
-        Vector v2 = new Vector();
-        v2.x = -1024;
-        v2.y = 0;
 
         float thit1 = thit(v,leftside);
-        float thit2 = thit(v2,topwall);
 
 
         if(thit1 < deltaTime && i == 0){
@@ -80,10 +72,7 @@ public class CannonBall {
             getReflection(v);
 
         }
-        else if(thit2 < deltaTime && i == 0){
-            i = 1;
-            getReflection(v2);
-        }
+        
     }
 
     public void getReflection(Vector v){

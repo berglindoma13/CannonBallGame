@@ -9,8 +9,6 @@ import java.nio.FloatBuffer;
 
 import com.badlogic.gdx.utils.BufferUtils;
 
-import static com.badlogic.gdx.graphics.GL20.GL_LINES;
-
 public class CannonGame extends ApplicationAdapter {
 
 	private FloatBuffer projectionMatrix;

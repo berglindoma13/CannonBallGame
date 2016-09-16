@@ -13,11 +13,8 @@ public class RectangleGraphic {
     private static FloatBuffer vertexBuffer;
     private static int vertexPointer;
 
-    private static Point currentpoint;
-
     public static void create(int vertexPointer) {
         RectangleGraphic.vertexPointer = vertexPointer;
-        currentpoint = new Point();
 
         float[] array = {-20.0f, -50.0f,
                 20.0f, -50.0f,

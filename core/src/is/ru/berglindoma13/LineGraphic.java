@@ -12,12 +12,12 @@ import java.nio.FloatBuffer;
  */
 public class LineGraphic {
     private static FloatBuffer vertexBuffer;
-    private static int vertexPointer;
+    private static int vertexPointerLocal;
 
     public LineGraphic(){};
 
     public static void drawline(int vertexPointer, Point a, Point b) {
-        LineGraphic.vertexPointer = vertexPointer;
+        LineGraphic.vertexPointerLocal = vertexPointer;
 
         float[] array = {a.x,a.y,b.x,b.y};
 
@@ -25,7 +25,7 @@ public class LineGraphic {
         vertexBuffer.put(array);
         vertexBuffer.rewind();
 
-        Gdx.gl.glVertexAttribPointer(vertexPointer, 2, GL20.GL_FLOAT, false, 0, vertexBuffer);
+        Gdx.gl.glVertexAttribPointer(vertexPointerLocal, 2, GL20.GL_FLOAT, false, 0, vertexBuffer);
         Gdx.gl.glDrawArrays(GL20.GL_LINE_STRIP, 0, 2);
     }
 }
