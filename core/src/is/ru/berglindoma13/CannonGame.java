@@ -45,7 +45,6 @@ public class CannonGame extends ApplicationAdapter {
     private float[] linesCoord;
     private int linecounter;
     private int lineCoordCounter;
-    //LineGraphic lineGraphic;
     private boolean rightButtonPressed;
     private LineGraphic[] lines;
 
@@ -74,9 +73,6 @@ public class CannonGame extends ApplicationAdapter {
         linecounter = 0;
         linesCoord = new float[4];
         lineCoordCounter = 0;
-        //lineGraphic = new LineGraphic(positionLoc);
-        //Point p1 = new Point();
-        //line = new LineGraphic(positionLoc, new Point(), new Point());
 
 
         ModelMatrix.main = new ModelMatrix();
@@ -165,7 +161,7 @@ public class CannonGame extends ApplicationAdapter {
             cannonball.update(hit);
         }
 
-        /*if(!rightButtonPressed){
+        if(!rightButtonPressed){
             if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
                 rightButtonPressed = true;
                 linesCoord[lineCoordCounter] = Gdx.input.getX();
@@ -176,17 +172,6 @@ public class CannonGame extends ApplicationAdapter {
                     lineCoordCounter = 0;
                     Point a = new Point(linesCoord[0], linesCoord[1]);
                     Point b = new Point(linesCoord[2], linesCoord[3]);
-                    /*for(int i = 0; i < linecounter; i++){
-
-                        a.x = linesCoord[i];
-                        a.y = linesCoord[i+1];
-                        System.out.println("x : " + a.x + " y: " + a.y);
-
-
-                        b.x = linesCoord[i+2];
-                        b.y = linesCoord[1+3];
-                        System.out.println("x2 : " + b.x + " y2: " + b.y);
-                    }*/
                     lines[linecounter++] = new LineGraphic(positionLoc, a, b);
 
                 }
@@ -194,7 +179,7 @@ public class CannonGame extends ApplicationAdapter {
         }
         else if(rightButtonPressed && !Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
             rightButtonPressed = false;
-        }*/
+        }
 
     }
 
@@ -225,7 +210,6 @@ public class CannonGame extends ApplicationAdapter {
             cannonball.display(colorLoc);
         }
 
-        //lineGraphic.drawline();
     }
 
 	@Override

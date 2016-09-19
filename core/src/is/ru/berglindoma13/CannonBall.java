@@ -77,15 +77,11 @@ public class CannonBall {
 
             Vector v = new Vector();
 
-            System.out.println("p1: " + p1.x + "," + p1.y);
-            System.out.println("p3: " + p3.x + "," + p3.y);
-
             if(direction.x >= 0 && direction.y >= 0){
 
                 //bottom
                 float thit2 = thit(p1,p3);
                 if (thit2 < deltaTime && thit2 > 0){
-                    System.out.println(thit2);
                     v.x = p1.x - p3.x;
                     v.y = p1.y - p3.x;
                     getReflection(v);
@@ -94,7 +90,6 @@ public class CannonBall {
                 //left
                 float thit3 = thit(p1,p2);
                 if(thit3 < deltaTime && thit3 > 0){
-                    System.out.println(thit3);
                     v.x = p1.x - p2.x;
                     v.y = p1.y - p2.x;
                     getReflection(v);
@@ -105,7 +100,6 @@ public class CannonBall {
                 //bottom
                 float thit2 = thit(p1,p3);
                 if (thit2 < deltaTime && thit2 > 0){
-                    System.out.println(thit2);
                     v.x = p1.x - p3.x;
                     v.y = p1.y - p3.x;
                     getReflection(v);
@@ -114,7 +108,6 @@ public class CannonBall {
                 //right
                 float thit4 = thit(p3,p4);
                 if(thit4 < deltaTime && thit4 > 0){
-                    System.out.println(thit4);
                     v.x = p3.x - p4.x;
                     v.y = p3.y - p4.x;
                     getReflection(v);
@@ -125,7 +118,6 @@ public class CannonBall {
                 //left
                 float thit3 = thit(p1,p2);
                 if(thit3 < deltaTime && thit3 > 0){
-                    System.out.println(thit3);
                     v.x = p1.x - p2.x;
                     v.y = p1.y - p2.x;
                     getReflection(v);
@@ -134,7 +126,6 @@ public class CannonBall {
                 //top
                 float thit1 = thit(p2,p4);
                 if(thit1 < deltaTime && thit1 > 0){
-                    System.out.println(thit1);
                     v.x = p2.x - p4.x;
                     v.y = p2.y - p4.x;
                     getReflection(v);
@@ -145,7 +136,6 @@ public class CannonBall {
                 //top
                 float thit1 = thit(p2,p4);
                 if(thit1 < deltaTime && thit1 > 0){
-                    System.out.println(thit1);
                     v.x = p2.x - p4.x;
                     v.y = p2.y - p4.x;
                     getReflection(v);
@@ -194,7 +184,7 @@ public class CannonBall {
 
         else if(direction.x < 0) {
             float thitleft = thit(lefttop, leftbottom);
-            
+
             if (thitleft < deltaTime && thitleft > 0) {
                 v.x = leftbottom.x - lefttop.x;
                 v.y = leftbottom.y - lefttop.y;
