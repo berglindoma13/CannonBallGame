@@ -8,13 +8,16 @@ import com.badlogic.gdx.Gdx;
 public class CannonBall {
     Point position;
     Vector direction;
+    Point cannonPoint;
 
     public CannonBall(Cannon cannon){
         direction = new Vector();
         position = new Point();
-        position.x = cannon.get_cannonPoint().x;
-        position.y = cannon.get_cannonPoint().y;
-        position.z = cannon.get_cannonPoint().z;
+        cannonPoint = new Point();
+        cannonPoint.x = cannon.get_cannonPoint().x;
+        cannonPoint.y = cannon.get_cannonPoint().y;
+        cannonPoint.z = cannon.get_cannonPoint().z;
+        position = cannonPoint;
         direction.x = 0.0f;
         direction.y = 0.0f;
     }
@@ -36,15 +39,18 @@ public class CannonBall {
 
         if (goal(hit)) {
             System.out.println("GOAL");
-            //position.x = cannon.get_cannonPoint().x;
-            //position.y = cannon.get_cannonPoint().y;
+            position.x = cannonPoint.x;
+            position.y = cannonPoint.y;
             CannonGame.stopball();
         }
         else if(outofbounds()){
+            position.x = cannonPoint.x;
+            position.y = cannonPoint.y;
             CannonGame.stopball();
         }
-
-        collision();
+        else {
+            collision();
+        }
 
     }
 

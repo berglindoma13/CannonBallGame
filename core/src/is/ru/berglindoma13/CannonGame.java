@@ -247,6 +247,7 @@ public class CannonGame extends ApplicationAdapter {
     public static float getNumberOfObstacles(){
         return Obstacles;
     }
+
     public static void stopball(){
         ball_moving = false;
     }
