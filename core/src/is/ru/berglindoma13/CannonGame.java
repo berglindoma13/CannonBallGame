@@ -200,16 +200,6 @@ public class CannonGame extends ApplicationAdapter {
         //drawing the cannon
         cannon.display(colorLoc);
 
-        for(int i = 0; i < linecounter; i++){
-
-            ModelMatrix.main.pushMatrix();
-            ModelMatrix.main.loadIdentityMatrix();
-            ModelMatrix.main.setModelMatrixTranslation(0,0,0);
-            ModelMatrix.main.setModelMatrixScale(0,0,0);
-            lines[i].drawline();
-            ModelMatrix.main.popMatrix();
-        }
-
         drawObstacles();
 
         if(ball_moving){
