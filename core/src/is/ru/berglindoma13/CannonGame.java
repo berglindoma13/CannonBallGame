@@ -186,21 +186,20 @@ public class CannonGame extends ApplicationAdapter {
     public void display(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        for(int i = 0; i < linecounter; i++){
+            ModelMatrix.main.pushMatrix();
+            ModelMatrix.main.loadIdentityMatrix();
+            ModelMatrix.main.setShaderMatrix();
+            lines[i].drawline();
+            ModelMatrix.main.popMatrix();
+        }
+
         //drawing the goal
         goal.display(colorLoc);
 
         //drawing the cannon
         cannon.display(colorLoc);
 
-        for(int i = 0; i < linecounter; i++){
-
-            ModelMatrix.main.pushMatrix();
-            ModelMatrix.main.loadIdentityMatrix();
-            ModelMatrix.main.setModelMatrixTranslation(0,0,0);
-            ModelMatrix.main.setModelMatrixScale(0,0,0);
-            lines[i].drawline();
-            ModelMatrix.main.popMatrix();
-        }
 
         drawObstacles();
 
