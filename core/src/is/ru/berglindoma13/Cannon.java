@@ -18,8 +18,8 @@ public class Cannon {
         position.z = 0;
         direction = new Vector();
         angle = 0.0f;
-        direction.x = 0.0f;
-        direction.y = 0.0f;
+        direction.x = -(float)Math.sin(Math.toRadians(angle)) * 150.0f;
+        direction.y = (float)Math.cos(Math.toRadians(angle)) * 150.0f;
     }
 
     public Point get_cannonPoint(){
@@ -43,10 +43,8 @@ public class Cannon {
                 angle += 5.0f;
 
                 direction.x = -(float)Math.sin(Math.toRadians(angle)) * 150.0f;
-                System.out.println("direction.x : " + direction.x);
 
                 direction.y = (float)Math.cos(Math.toRadians(angle)) * 150.0f;
-                System.out.println("direction.y : " + direction.y);
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
@@ -54,10 +52,8 @@ public class Cannon {
                 angle -= 5.0f;
 
                 direction.x = -(float)Math.sin(Math.toRadians(angle)) * 150.0f;
-                System.out.println("direction.x : " + direction.x);
 
                 direction.y = (float)Math.cos(Math.toRadians(angle)) * 150.0f;
-                System.out.println("direction.y : " + direction.y);
             }
         }
     }

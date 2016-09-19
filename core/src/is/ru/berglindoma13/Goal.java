@@ -47,7 +47,10 @@ public class Goal {
         ModelMatrix.main.popMatrix();
     }
 
-    public float goalcords(){
-        return position.x;
+    public Point goalcords(){
+        Point chords = new Point();
+        chords.x = position.x;
+        chords.y = position.y;
+        return chords;
     }
 }

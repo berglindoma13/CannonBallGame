@@ -26,14 +26,14 @@ public class CannonGame extends ApplicationAdapter {
 	private int colorLoc;
 
     //Goal
-    private Goal goal;
+    private static Goal goal;
 
     //Cannon
-    private Cannon cannon;
+    private static Cannon cannon;
 
     //position of CannonBall
-    private boolean ball_moving;
-    private CannonBall cannonball;
+    private static boolean ball_moving;
+    private static CannonBall cannonball;
 
     //Obstacles
     private static float[] ObstacleX;
@@ -136,7 +136,7 @@ public class CannonGame extends ApplicationAdapter {
 
         cannon.update();
         goal.update();
-        float hit = goal.goalcords();
+        Point hit = goal.goalcords();
 
         if(!leftButtonPressed){
             leftButtonPressed = true;
@@ -193,8 +193,9 @@ public class CannonGame extends ApplicationAdapter {
         cannon.display(colorLoc);
 
         for(int i = 0; i < linecounter; i++){
-            ModelMatrix.main.loadIdentityMatrix();
+
             ModelMatrix.main.pushMatrix();
+            ModelMatrix.main.loadIdentityMatrix();
             ModelMatrix.main.setModelMatrixTranslation(0,0,0);
             ModelMatrix.main.setModelMatrixScale(0,0,0);
             lines[i].drawline();
@@ -203,13 +204,10 @@ public class CannonGame extends ApplicationAdapter {
 
         drawObstacles();
 
-
-
         if(ball_moving){
 
             cannonball.display(colorLoc);
         }
-
     }
 
 	@Override
@@ -235,7 +233,7 @@ public class CannonGame extends ApplicationAdapter {
             }
             ModelMatrix.main.setModelMatrixTranslation(ObstacleX[i],ObstacleY[i], 0);
             ModelMatrix.main.setModelMatrixRotation(90);
-            ModelMatrix.main.setShaderMatrix(modelMatrixLoc);
+            ModelMatrix.main.setShaderMatrix();
             Gdx.gl.glUniform4f(colorLoc, 1.0f, 0.0f, 0, 1);
             RectangleGraphic.drawSolidSquare();
             ModelMatrix.main.popMatrix();
@@ -250,6 +248,9 @@ public class CannonGame extends ApplicationAdapter {
     }
     public static float getNumberOfObstacles(){
         return Obstacles;
+    }
+    public static void stopball(){
+        ball_moving = false;
     }
 
 }
