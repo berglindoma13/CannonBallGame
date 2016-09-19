@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 import java.nio.FloatBuffer;
 
+import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.utils.BufferUtils;
 
 public class CannonGame extends ApplicationAdapter {
@@ -117,14 +118,6 @@ public class CannonGame extends ApplicationAdapter {
 		projectionMatrix.rewind();
 		Gdx.gl.glUniformMatrix4fv(projectionMatrixLoc, 1, false, projectionMatrix);
 
-
-		float[] mm = new float[16];
-
-		mm[0] = 1.0f; mm[4] = 0.0f; mm[8] = 0.0f; mm[12] = 0.0f;
-		mm[1] = 0.0f; mm[5] = 1.0f; mm[9] = 0.0f; mm[13] = 0.0f;
-		mm[2] = 0.0f; mm[6] = 0.0f; mm[10] = 1.0f; mm[14] = 0.0f;
-		mm[3] = 0.0f; mm[7] = 0.0f; mm[11] = 0.0f; mm[15] = 1.0f;
-
 		//COLOR IS SET HERE
 		Gdx.gl.glUniform4f(colorLoc, 0.7f, 0.2f, 0, 1);
 		Gdx.gl.glClearColor(0.4f, 0.6f, 1.0f, 1.0f);
@@ -158,14 +151,14 @@ public class CannonGame extends ApplicationAdapter {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
 
-            cannonball.setDirection(cannon.direction.x);
+            cannonball.setDirection(cannon.direction.x, cannon.direction.y);
             ball_moving = true;
         }
         if (ball_moving){
             cannonball.update(hit);
         }
 
-        if(!rightButtonPressed){
+        /*if(!rightButtonPressed){
             if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
                 rightButtonPressed = true;
                 lines[linecounter] = Gdx.input.getX();
@@ -190,7 +183,7 @@ public class CannonGame extends ApplicationAdapter {
         }
         else if(rightButtonPressed && !Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
             rightButtonPressed = false;
-        }
+        }*/
 
     }
 

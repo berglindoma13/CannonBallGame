@@ -18,7 +18,7 @@ public class CannonBall {
         position.y = cannon.get_cannonPoint().y;
         position.z = cannon.get_cannonPoint().z;
         direction.x = 0.0f;
-        direction.y = 1.0f;
+        direction.y = 0.0f;
     }
 
     public void display(int colorLoc){
@@ -33,16 +33,18 @@ public class CannonBall {
 
     public void update(float hit){
         float deltaTime = Gdx.graphics.getDeltaTime();
-        position.x += direction.x * deltaTime * 150.0f;
-        position.y += direction.y * deltaTime * 150.0f;
+        position.x += direction.x * deltaTime;
+        //* 150.0f;
+        position.y += direction.y * deltaTime ;
+                //* 150.0f;
 
         collision(hit);
 
     }
 
-    public void setDirection(float x){
+    public void setDirection(float x, float y){
         direction.x = x;
-        direction.y = 1;
+        direction.y = y;
     }
 
     public void collision(float hit){
@@ -73,23 +75,133 @@ public class CannonBall {
             p4.x = middle.x + 50;
             p4.y = middle.y + 20;
 
-            System.out.println("middle.x: " + middle.x + " middle.y: " + middle.y);
-            System.out.println("p1.x: " + p1.x + " p1.y: " + p1.y);
-            System.out.println("p2.x: " + p2.x + " p2.y: " + p2.y);
-            System.out.println("p3.x: " + p3.x + " p3.y: " + p3.y);
-            System.out.println("p4.x: " + p4.x + " p4.y: " + p4.y);
+            Vector v = new Vector();
+
+            System.out.println("p1: " + p1.x + "," + p1.y);
+            System.out.println("p3: " + p3.x + "," + p3.y);
+
+            if(direction.x >= 0 && direction.y >= 0){
+
+                //bottom
+                float thit2 = thit(p1,p3);
+                if (thit2 < deltaTime && thit2 > 0){
+                    System.out.println(thit2);
+                    v.x = p1.x - p3.x;
+                    v.y = p1.y - p3.x;
+                    getReflection(v);
+                }
+
+                //left
+                float thit3 = thit(p1,p2);
+                if(thit3 < deltaTime && thit3 > 0){
+                    System.out.println(thit3);
+                    v.x = p1.x - p2.x;
+                    v.y = p1.y - p2.x;
+                    getReflection(v);
+                }
+            }
+
+            else if(direction.x <= 0 && direction.y >= 0){
+                //bottom
+                float thit2 = thit(p1,p3);
+                if (thit2 < deltaTime && thit2 > 0){
+                    System.out.println(thit2);
+                    v.x = p1.x - p3.x;
+                    v.y = p1.y - p3.x;
+                    getReflection(v);
+                }
+
+                //right
+                float thit4 = thit(p3,p4);
+                if(thit4 < deltaTime && thit4 > 0){
+                    System.out.println(thit4);
+                    v.x = p3.x - p4.x;
+                    v.y = p3.y - p4.x;
+                    getReflection(v);
+                }
+            }
+
+            else if(direction.x >= 0 && direction.y <= 0){
+                //left
+                float thit3 = thit(p1,p2);
+                if(thit3 < deltaTime && thit3 > 0){
+                    System.out.println(thit3);
+                    v.x = p1.x - p2.x;
+                    v.y = p1.y - p2.x;
+                    getReflection(v);
+                }
+
+                //top
+                float thit1 = thit(p2,p4);
+                if(thit1 < deltaTime && thit1 > 0){
+                    System.out.println(thit1);
+                    v.x = p2.x - p4.x;
+                    v.y = p2.y - p4.x;
+                    getReflection(v);
+                }
+            }
+
+            else if(direction.x <= 0 && direction.y <= 0){
+                //top
+                float thit1 = thit(p2,p4);
+                if(thit1 < deltaTime && thit1 > 0){
+                    System.out.println(thit1);
+                    v.x = p2.x - p4.x;
+                    v.y = p2.y - p4.x;
+                    getReflection(v);
+                }
+
+                //right
+                float thit4 = thit(p3,p4);
+                if(thit4 < deltaTime && thit4 > 0){
+                    System.out.println(thit4);
+                    v.x = p3.x - p4.x;
+                    v.y = p3.y - p4.x;
+                    getReflection(v);
+                }
+            }
         }
 
-        Point leftside = new Point();
-        leftside.x = 0;
-        leftside.y = 768;
+        //Checking wall hits
+        Point lefttop = new Point();
+        lefttop.x = 0;
+        lefttop.y = 768;
+
+        Point righttop = new Point();
+        righttop.x = 1024;
+        righttop.y = 768;
+
+        Point leftbottom = new Point();
+        leftbottom.x = 0;
+        leftbottom.y = 0;
+
+        Point rightbottom = new Point();
+        rightbottom.x = 1024;
+        rightbottom.y = 0;
+
 
         Vector v = new Vector();
-        v.x = 0;
-        v.y = -768;
+        //right side wall
+        if(direction.x >= 0) {
+            float thitright = thit(righttop, rightbottom);
+            if (thitright < deltaTime) {
 
-        //float thit1 = thit(v,leftside);
+                v.x = rightbottom.x - righttop.x;
+                v.y = rightbottom.y - righttop.y;
+                getReflection(v);
+            }
+        }
 
+        else if(direction.x < 0) {
+            float thitleft = thit(lefttop, leftbottom);
+            
+            if (thitleft < deltaTime && thitleft > 0) {
+                v.x = leftbottom.x - lefttop.x;
+                v.y = leftbottom.y - lefttop.y;
+
+                getReflection(v);
+            }
+        }
     }
 
     public void getReflection(Vector v){
@@ -105,12 +217,12 @@ public class CannonBall {
         temp.x = normal.x*calc;
         temp.y = normal.y*calc;
 
+
         reflection.x = direction.x - temp.x;
         reflection.y = direction.y - temp.y;
 
         direction.x = reflection.x;
         direction.y = reflection.y;
-        //i = 0;
     }
 
     private float thit(Point a, Point b){
@@ -122,8 +234,8 @@ public class CannonBall {
         normal = v.getnormal();
 
         Vector b_a = new Vector();
-        b_a.x = (b.x - position.x);
-        b_a.y = (b.y - position.y);
+        b_a.x = (a.x - position.x);
+        b_a.y = (a.y - position.y);
 
         float thit = ((normal.x * b_a.x) + (normal.y * b_a.y)) / ((normal.x * direction.x) + (normal.y * direction.y));
 
