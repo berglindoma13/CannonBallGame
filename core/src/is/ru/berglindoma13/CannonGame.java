@@ -42,10 +42,12 @@ public class CannonGame extends ApplicationAdapter {
     private boolean leftButtonPressed;
 
     //Lines
-    private float[] lines;
+    private float[] linesCoord;
     private int linecounter;
-    LineGraphic lineGraphic;
-    boolean rightButtonPressed;
+    private int lineCoordCounter;
+    //LineGraphic lineGraphic;
+    private boolean rightButtonPressed;
+    private LineGraphic[] lines;
 
 	@Override
 	public void create () {
@@ -67,10 +69,15 @@ public class CannonGame extends ApplicationAdapter {
         leftButtonPressed = false;
 
         //Line array
-        lines = new float[400];
+        lines = new LineGraphic[100];
         rightButtonPressed = false;
         linecounter = 0;
-        lineGraphic = new LineGraphic();
+        linesCoord = new float[4];
+        lineCoordCounter = 0;
+        //lineGraphic = new LineGraphic(positionLoc);
+        //Point p1 = new Point();
+        //line = new LineGraphic(positionLoc, new Point(), new Point());
+
 
         ModelMatrix.main = new ModelMatrix();
 
@@ -161,23 +168,27 @@ public class CannonGame extends ApplicationAdapter {
         /*if(!rightButtonPressed){
             if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
                 rightButtonPressed = true;
-                lines[linecounter] = Gdx.input.getX();
-                lines[linecounter+1] = Gdx.graphics.getHeight() - Gdx.input.getY();
+                linesCoord[lineCoordCounter] = Gdx.input.getX();
+                linesCoord[lineCoordCounter+1] = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-                linecounter+=2;
-                if (linecounter % 4 == 0){
-                    for(int i = 0; i < linecounter; i=i+4){
-                        Point a = new Point();
-                        a.x = lines[i];
-                        a.y = lines[i+1];
+                lineCoordCounter += 2;
+                if (lineCoordCounter == 4){
+                    lineCoordCounter = 0;
+                    Point a = new Point(linesCoord[0], linesCoord[1]);
+                    Point b = new Point(linesCoord[2], linesCoord[3]);
+                    /*for(int i = 0; i < linecounter; i++){
+
+                        a.x = linesCoord[i];
+                        a.y = linesCoord[i+1];
                         System.out.println("x : " + a.x + " y: " + a.y);
 
-                        Point b = new Point();
-                        b.x = lines[i+2];
-                        b.y = lines[1+3];
+
+                        b.x = linesCoord[i+2];
+                        b.y = linesCoord[1+3];
                         System.out.println("x2 : " + b.x + " y2: " + b.y);
-                        lineGraphic.drawline(positionLoc,a,b);
-                    }
+                    }*/
+                    lines[linecounter++] = new LineGraphic(positionLoc, a, b);
+
                 }
             }
         }
@@ -196,14 +207,25 @@ public class CannonGame extends ApplicationAdapter {
         //drawing the cannon
         cannon.display(colorLoc);
 
+        for(int i = 0; i < linecounter; i++){
+            ModelMatrix.main.loadIdentityMatrix();
+            ModelMatrix.main.pushMatrix();
+            ModelMatrix.main.setModelMatrixTranslation(0,0,0);
+            ModelMatrix.main.setModelMatrixScale(0,0,0);
+            lines[i].drawline();
+            ModelMatrix.main.popMatrix();
+        }
+
         drawObstacles();
+
+
 
         if(ball_moving){
 
             cannonball.display(colorLoc);
         }
 
-
+        //lineGraphic.drawline();
     }
 
 	@Override
