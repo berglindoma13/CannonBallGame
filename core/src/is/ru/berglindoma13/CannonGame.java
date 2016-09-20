@@ -42,8 +42,8 @@ public class CannonGame extends ApplicationAdapter {
     private boolean leftButtonPressed;
 
     //Lines
-    private float[] linesCoord;
-    private int lineCoordCounter;
+    private static float[] linesCoord;
+    private static int lineCoordCounter;
     private boolean rightButtonPressed;
     private static LineGraphic[] lines;
     private static int linecounter;
@@ -153,9 +153,10 @@ public class CannonGame extends ApplicationAdapter {
 
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
-
-            cannonball.setDirection(cannon.direction.x, cannon.direction.y);
-            ball_moving = true;
+            if(!ball_moving) {
+                cannonball.setDirection(cannon.direction.x, cannon.direction.y);
+                ball_moving = true;
+            }
         }
         if (ball_moving){
             cannonball.update(hit);
@@ -204,7 +205,6 @@ public class CannonGame extends ApplicationAdapter {
         drawObstacles();
 
         if(ball_moving){
-
             cannonball.display(colorLoc);
         }
     }
@@ -253,6 +253,17 @@ public class CannonGame extends ApplicationAdapter {
     public static int getNumberOfLines() {return linecounter;}
 
     public static void stopball(){
+        cannonball = new CannonBall(cannon);
+        //Obstacles Array
+        ObstacleX = new float[100];
+        ObstacleY = new float[100];
+        Obstacles = 0;
+
+        //Line array
+        lines = new LineGraphic[100];
+        linecounter = 0;
+        linesCoord = new float[4];
+        lineCoordCounter = 0;
         ball_moving = false;
     }
 
