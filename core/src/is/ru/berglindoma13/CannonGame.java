@@ -43,10 +43,10 @@ public class CannonGame extends ApplicationAdapter {
 
     //Lines
     private float[] linesCoord;
-    private int linecounter;
     private int lineCoordCounter;
     private boolean rightButtonPressed;
-    private LineGraphic[] lines;
+    private static LineGraphic[] lines;
+    private static int linecounter;
 
 	@Override
 	public void create () {
@@ -247,6 +247,8 @@ public class CannonGame extends ApplicationAdapter {
     public static float getNumberOfObstacles(){
         return Obstacles;
     }
+    public static LineGraphic[] getLines() {return lines;}
+    public static int getNumberOfLines() {return linecounter;}
 
     public static void stopball(){
         ball_moving = false;

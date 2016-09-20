@@ -62,6 +62,19 @@ public class CannonBall {
     public void collision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
+        for(int i = 0; i < CannonGame.getNumberOfLines(); i++){
+            Vector v = new Vector();
+
+            float thitline = thit(CannonGame.getLines()[i].getPointA(), CannonGame.getLines()[i].getPointB());
+
+            if (thitline < deltaTime && thitline > 0) {
+                v.x = CannonGame.getLines()[i].getPointA().x - CannonGame.getLines()[i].getPointB().x;
+                v.y = CannonGame.getLines()[i].getPointA().y - CannonGame.getLines()[i].getPointB().y;
+
+                getReflection(v);
+            }
+        }
+
         for(int i = 0 ; i < CannonGame.getNumberOfObstacles(); i++){
             Point middle = new Point();
             middle.x = CannonGame.getObstaclesX()[i];

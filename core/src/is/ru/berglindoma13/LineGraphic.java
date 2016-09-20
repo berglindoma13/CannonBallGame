@@ -15,7 +15,12 @@ public class LineGraphic {
     private  FloatBuffer vertexBuffer;
     private  int vertexPointerLocal;
 
+    private Point a;
+    private Point b;
+
     public LineGraphic(int vertexPointer, Point a, Point b){
+        this.a = a;
+        this.b = b;
         vertexPointerLocal = vertexPointer;
 
         float[] array = {a.x,a.y,b.x,b.y};
@@ -23,6 +28,14 @@ public class LineGraphic {
         vertexBuffer = BufferUtils.newFloatBuffer(4);
         vertexBuffer.put(array);
         vertexBuffer.rewind();
+    }
+
+    public Point getPointA(){
+        return this.a;
+    }
+
+    public Point getPointB(){
+        return this.b;
     }
 
     public void create() {
