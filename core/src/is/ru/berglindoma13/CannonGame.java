@@ -139,9 +139,9 @@ public class CannonGame extends ApplicationAdapter {
         Point hit = goal.goalcords();
 
         if(!leftButtonPressed){
-            leftButtonPressed = true;
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
+                leftButtonPressed = true;
                 ObstacleX[Obstacles] = Gdx.input.getX();
                 ObstacleY[Obstacles] = Gdx.graphics.getHeight() - Gdx.input.getY();
                 Obstacles++;
@@ -229,6 +229,7 @@ public class CannonGame extends ApplicationAdapter {
             if(ObstacleY[i] < 20){
                 ObstacleY[i] = 20;
             }
+            ModelMatrix.main.loadIdentityMatrix();
             ModelMatrix.main.setModelMatrixTranslation(ObstacleX[i],ObstacleY[i], 0);
             ModelMatrix.main.setModelMatrixRotation(90);
             ModelMatrix.main.setShaderMatrix();
