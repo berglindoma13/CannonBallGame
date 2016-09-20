@@ -63,13 +63,20 @@ public class CannonBall {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
         for(int i = 0; i < CannonGame.getNumberOfLines(); i++){
+
+            Point a = new Point(CannonGame.getLines()[i].getPointA().x, CannonGame.getLines()[i].getPointA().y);
+            Point b = new Point(CannonGame.getLines()[i].getPointB().x, CannonGame.getLines()[i].getPointB().y);
+
             Vector v = new Vector();
 
-            float thitline = thit(CannonGame.getLines()[i].getPointA(), CannonGame.getLines()[i].getPointB());
+            float thitline = thit(a, b);
 
-            if (thitline < deltaTime && thitline > 0) {
-                v.x = CannonGame.getLines()[i].getPointA().x - CannonGame.getLines()[i].getPointB().x;
-                v.y = CannonGame.getLines()[i].getPointA().y - CannonGame.getLines()[i].getPointB().y;
+            Point phit = getPhit(thitline);
+            boolean itsahit = (phit.x >= a.x) && (phit.x <= b.x);
+
+            if ((thitline < deltaTime && thitline > 0) && itsahit) {
+                v.x = a.x - b.x;
+                v.y = a.y - b.y;
 
                 getReflection(v);
             }
