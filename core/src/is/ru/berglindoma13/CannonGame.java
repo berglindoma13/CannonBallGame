@@ -190,6 +190,7 @@ public class CannonGame extends ApplicationAdapter {
             ModelMatrix.main.pushMatrix();
             ModelMatrix.main.loadIdentityMatrix();
             ModelMatrix.main.setShaderMatrix();
+            Gdx.gl.glUniform4f(colorLoc, 1.0f, 1.0f, 1, 1);
             lines[i].drawline();
             ModelMatrix.main.popMatrix();
         }
